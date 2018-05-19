@@ -1,7 +1,7 @@
-= Easily deploy multiple Wordpress sites
-== Wordpress alpine-fpm containers behind nginx as reverse proxy
+# Easily deploy multiple Wordpress sites
+## Wordpress alpine-fpm containers behind nginx as reverse proxy
 
-=== Quick start
+### Quick start
 
  * Clone repo
  * Change into repo directory
