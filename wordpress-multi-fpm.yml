@@ -1,0 +1,68 @@
+version: '3.1'
+
+services:
+
+  web:
+    image: nginx
+    restart: always
+    volumes:
+        - ./nginx_conf/nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx_conf/conf.d:/etc/nginx/conf.d
+        - site1_html:/site1
+        - site1_content:/site1/wp-content
+        - site2_html:/site2
+        - site2_content:/site2/wp-content
+    ports:
+      - 80:80
+    networks:
+        - front
+
+  site1:
+    # new tag: stop stack, remove site1_html volume, start stack
+    image: wordpress:4.9.5-php7.0-fpm
+    restart: always
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+      WORDPRESS_TABLE_PREFIX: site1_
+    networks:
+        - front
+        - back
+    volumes:
+        - site1_html:/var/www/html
+        - site1_content:/var/www/html/wp-content
+
+  site2:
+    # new tag: stop stack, remove site2_html volume, start stack
+    image: wordpress:php7.1-fpm-alpine
+    restart: always
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+      WORDPRESS_TABLE_PREFIX: site2_
+    networks:
+        - front
+        - back
+    volumes:
+        - site2_html:/var/www/html
+        - site2_content:/var/www/html/wp-content
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+        - back
+    volumes:
+        - db_data:/var/lib/mysql
+
+
+networks:
+    front:
+    back:
+
+volumes:
+    site1_html:
+    site1_content:
+    site2_html:
+    site2_content:
+    db_data:
