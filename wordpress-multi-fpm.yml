@@ -19,7 +19,7 @@ services:
 
   site1:
     # new tag: stop stack, remove site1_html volume, start stack
-    image: wordpress:4.9.5-php7.0-fpm
+    image: wordpress:php7.1-fpm-alpine
     restart: always
     environment:
       WORDPRESS_DB_PASSWORD: example
