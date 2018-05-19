@@ -12,9 +12,10 @@ Since fpm only handles php execution, the nginx container has to have access to 
 the wordpress container. This is accomplished by mounting the siteN_html into the nginx container as
 /siteN and into the wordpress container as /var/www/html
 
-Wordpress containers normally mount an anonymous volume at /var/www/html. This is done in order to upgrade
+Wordpress containers normally mount an anonymous volume at /var/www/html. This is done in order to easily upgrade
 to a new version of wp. You change the image tag and restart the container. So it is unfortunate that 
-nginx needs to access the volume as well. Now you will have to remove the volume before up- (or down-) grade
+nginx needs to access the volume as well. This necessitates creating a named volume. 
+Now you will have to remove this named volume before up- (or down-) grading
 the wordpress container. Of course you will want to keep your site content (uploads, plugins, themes, etc), so
 I mount this as a seperate volume as siteN/wp-content into the nginx container, and as /var/www/html/wp-content
 into the wordpress containers
