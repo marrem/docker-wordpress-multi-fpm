@@ -8,10 +8,10 @@ services:
     volumes:
         - ./nginx_conf/nginx.conf:/etc/nginx/nginx.conf
         - ./nginx_conf/conf.d:/etc/nginx/conf.d
-        - site1_html:/site1
-        - site1_content:/site1/wp-content
-        - site2_html:/site2
-        - site2_content:/site2/wp-content
+        - site1_html:/site1:ro
+        - site1_content:/site1/wp-content:ro
+        - site2_html:/site2:ro
+        - site2_content:/site2/wp-content:ro
     ports:
       - 80:80
     networks:
